@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://djkksaco3adv"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_sic6b"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_sic6b")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.0
+offset_top = -67.0
+offset_right = 211.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 76
+text = "THIS IS A LABEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.267361
+anchor_top = 0.137346
+anchor_right = 0.746528
+anchor_bottom = 0.322531
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 76
+text = "Press Me To run tests!"
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
