@@ -63,6 +63,10 @@ class LevelComponent_Tests:
 	func run_add_level_tests():
 		var level : LevelComponent = LevelComponent.new()
 		
+		# Level-up formula is hard-coded and the test have to know how to calculate it
+		# it should be decoupled, stubable, so that I can create test stub for the formula
+		# then it would be independent from logic changes
+		# it would also allow for handling multiple strategies for calculating xp required for level-up 
 		level.add_xp(20+40+1)
 		
 		print("expected current_level: 3; actual level: " + str(level._current_level))
