@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://7u5nlspcnsxy"]
+
+[ext_resource type="Texture2D" uid="uid://cw4n52hephr6a" path="res://icon.svg" id="1_5t5ad"]
+[ext_resource type="PackedScene" uid="uid://bl00pbiww6s0c" path="res://scenes/player.tscn" id="2_y3nd4"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nl0qh"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.368627, 1, 1)
+position = Vector2(277, 133)
+texture = ExtResource("1_5t5ad")
+
+[node name="Player" parent="." instance=ExtResource("2_y3nd4")]
+position = Vector2(339, 291)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(339, 284)
+zoom = Vector2(4, 4)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(339, 291)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 2)
+shape = SubResource("WorldBoundaryShape2D_nl0qh")
