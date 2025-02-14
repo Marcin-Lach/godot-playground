@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7u5nlspcnsxy"]
+[gd_scene load_steps=9 format=3 uid="uid://7u5nlspcnsxy"]
 
-[ext_resource type="Texture2D" uid="uid://cw4n52hephr6a" path="res://icon.svg" id="1_5t5ad"]
 [ext_resource type="Texture2D" uid="uid://csksjad6wblui" path="res://assets/sprites/world_tileset.png" id="1_lgpdj"]
 [ext_resource type="PackedScene" uid="uid://bl00pbiww6s0c" path="res://scenes/player.tscn" id="2_y3nd4"]
+[ext_resource type="PackedScene" uid="uid://dgpgrfujlyo1v" path="res://scenes/platform.tscn" id="3_jm5f7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ly4rm"]
 texture = ExtResource("1_lgpdj")
@@ -170,6 +170,44 @@ texture = ExtResource("1_lgpdj")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ly4rm")
 
+[sub_resource type="Animation" id="Animation_evexo"]
+resource_name = "move"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(544, 292), Vector2(632, 292)]
+}
+
+[sub_resource type="Animation" id="Animation_x0ko3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(544, 292)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7vdtc"]
+_data = {
+"RESET": SubResource("Animation_x0ko3"),
+"move": SubResource("Animation_evexo")
+}
+
 [node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -177,14 +215,22 @@ tile_set = SubResource("TileSet_boinp")
 format = 2
 layer_0/tile_data = PackedInt32Array(1179666, 0, 0, 1179667, 0, 0, 1179668, 0, 0, 1179669, 0, 0, 1179670, 0, 0, 1179671, 0, 0, 1179672, 589824, 2, 1179673, 655360, 2, 1179674, 720896, 2, 1179675, 0, 0, 1179676, 0, 0, 1245202, 0, 1, 1245203, 0, 1, 1245204, 0, 1, 1245205, 0, 1, 1245206, 0, 1, 1245207, 0, 1, 1245211, 0, 1, 1245212, 0, 1, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 983067, 0, 0, 1179677, 0, 0, 1179678, 0, 0, 1179679, 0, 0, 1179680, 0, 0, 1245213, 0, 1, 1245214, 0, 1, 1245215, 0, 1, 1245216, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.368627, 1, 1)
-position = Vector2(277, 133)
-texture = ExtResource("1_5t5ad")
-
 [node name="Player" parent="." instance=ExtResource("2_y3nd4")]
 position = Vector2(339, 291)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[node name="Platform" parent="." instance=ExtResource("3_jm5f7")]
+position = Vector2(312, 260)
+
+[node name="Platform2" parent="." instance=ExtResource("3_jm5f7")]
+position = Vector2(544, 292)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform2"]
+libraries = {
+"": SubResource("AnimationLibrary_7vdtc")
+}
+autoplay = "move"
