@@ -259,7 +259,6 @@ tile_map_data = PackedByteArray("AAASABMAAAAFAAkAAAATABMAAAAFAAkAAAAUABMAAAAFAAk
 tile_set = SubResource("TileSet_boinp")
 
 [node name="Background" type="TileMapLayer" parent="Map"]
-visible = false
 z_index = -10
 use_parent_material = true
 position = Vector2(-1, 0)
