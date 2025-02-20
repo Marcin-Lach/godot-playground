@@ -1,11 +1,13 @@
-[gd_scene load_steps=13 format=4 uid="uid://7u5nlspcnsxy"]
+[gd_scene load_steps=15 format=4 uid="uid://7u5nlspcnsxy"]
 
+[ext_resource type="Script" path="res://scenes/game_manager.gd" id="1_gok64"]
 [ext_resource type="Texture2D" uid="uid://csksjad6wblui" path="res://assets/sprites/world_tileset.png" id="1_lgpdj"]
 [ext_resource type="PackedScene" uid="uid://bl00pbiww6s0c" path="res://scenes/player.tscn" id="2_y3nd4"]
 [ext_resource type="PackedScene" uid="uid://dgpgrfujlyo1v" path="res://scenes/platform.tscn" id="3_jm5f7"]
 [ext_resource type="PackedScene" uid="uid://beblio2w1ssjq" path="res://scenes/pickup.tscn" id="4_ksu5s"]
 [ext_resource type="PackedScene" uid="uid://c3bamdaih4ifh" path="res://scenes/killzone.tscn" id="5_r74nv"]
 [ext_resource type="PackedScene" uid="uid://c4qy4tdjkfpq2" path="res://scenes/enemy.tscn" id="6_rvfn1"]
+[ext_resource type="FontFile" uid="uid://douhlcsatimlv" path="res://assets/fonts/PixelOperator8.ttf" id="6_vhenf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ly4rm"]
 texture = ExtResource("1_lgpdj")
@@ -215,7 +217,12 @@ _data = {
 
 [node name="Main" type="Node2D"]
 
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_gok64")
+
 [node name="Player" parent="." instance=ExtResource("2_y3nd4")]
+z_index = 500
 position = Vector2(339, 291)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -224,6 +231,17 @@ zoom = Vector2(4, 4)
 limit_bottom = 350
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="ScoreLabel" type="Label" parent="Player/Camera2D"]
+unique_name_in_owner = true
+offset_left = -89.0
+offset_top = -47.0
+offset_right = -3.0
+offset_bottom = -24.0
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("6_vhenf")
+theme_override_font_sizes/font_size = 8
+text = "Score X"
 
 [node name="Map" type="Node" parent="."]
 
@@ -241,6 +259,7 @@ tile_map_data = PackedByteArray("AAASABMAAAAFAAkAAAATABMAAAAFAAkAAAAUABMAAAAFAAk
 tile_set = SubResource("TileSet_boinp")
 
 [node name="Background" type="TileMapLayer" parent="Map"]
+visible = false
 z_index = -10
 use_parent_material = true
 position = Vector2(-1, 0)
@@ -291,6 +310,48 @@ libraries = {
 "": SubResource("AnimationLibrary_7vdtc")
 }
 autoplay = "move"
+
+[node name="Texts" type="Node" parent="World"]
+
+[node name="JumpInfo" type="Label" parent="World/Texts"]
+offset_left = 220.0
+offset_top = 273.0
+offset_right = 311.0
+offset_bottom = 296.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_vhenf")
+theme_override_font_sizes/font_size = 8
+text = "Space to jump."
+
+[node name="TimingInfo" type="Label" parent="World/Texts"]
+offset_left = 560.0
+offset_top = 252.0
+offset_right = 665.0
+offset_bottom = 275.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_vhenf")
+theme_override_font_sizes/font_size = 8
+text = "Timing is crucial!"
+
+[node name="FallingInfo" type="Label" parent="World/Texts"]
+offset_left = 574.0
+offset_top = 309.0
+offset_right = 684.0
+offset_bottom = 332.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_vhenf")
+theme_override_font_sizes/font_size = 8
+text = "Falling hurts."
+
+[node name="CoinsInfo" type="Label" parent="World/Texts"]
+offset_left = 333.0
+offset_top = 169.0
+offset_right = 462.0
+offset_bottom = 192.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_vhenf")
+theme_override_font_sizes/font_size = 8
+text = "All those shiny coins..."
 
 [node name="Enemy" parent="." instance=ExtResource("6_rvfn1")]
 position = Vector2(743, 260)
